@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>School Search</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    #searchBox { width: 300px; padding: 10px; font-size: 16px; }
+    .result { border: 1px solid #ddd; padding: 10px; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <h1>Search [School Name]</h1>
+  
+  <input type="text" id="searchBox" placeholder="Search for pages...">
+  <button onclick="doSearch()">Search</button>
+
+  <div id="results"></div>
+
+<script>
+// This is your "database" of pages
+const pages = [
+  { title: "Home", content: "Welcome to our school. Respect Responsibility Ready", link: "index.html" },
+  { title: "Admissions", content: "How to apply for Form 1 and Lower 6", link: "admissions.html" },
+  { title: "Discipline", content: "School rules and discipline action plan", link: "discipline.html" },
+  { title: "Contact", content: "Phone number and location in Harare", link: "contact.html" }
+];
+
+function doSearch() {
+  let query = document.getElementById("searchBox").value.toLowerCase();
+  let resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "";
+  
+  let found = pages.filter(page => 
+    page.title.toLowerCase().includes(query) || 
+    page.content.toLowerCase().includes(query)
+  );
+  
+  if(found.length === 0) {
+    resultsDiv.innerHTML = "<p>No results found</p>";
+  } else {
+    found.forEach(page => {
+      resultsDiv.innerHTML += `
+        <div class="result">
+          <h3><a href="${page.link}">${page.title}</a></h3>
+          <p>${page.content}</p>
+        </div>
+      `;
+    });
+  }
+}
+</script>
+
+</body>
+</html>
